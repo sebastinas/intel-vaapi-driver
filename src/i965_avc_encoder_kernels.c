@@ -13,7 +13,6 @@
  *  See the License for the specific language governing permissions and
  *  limitations under the License.
  */
-#include "i965_avc_encoder_kernels.h"
 
 const unsigned int skl_avc_encoder_kernels[] = {
     0x0000001b, 0x00000088, 0x000010c8, 0x00008948, 0x00012588, 0x000135c8, 0x0001ae48, 0x00024a88,
@@ -12063,7 +12062,7 @@ const unsigned int skl_avc_encoder_kernels[] = {
 };
 
 /* AVC FEI kernels for SKL */
-const unsigned int skl_avc_fei_encoder_kernels[AVC_ENC_FEI_SKL_SZ] = {
+const unsigned int skl_avc_fei_encoder_kernels[] = {
     0x0000000c, 0x00000048, 0x00001448, 0x0000a348, 0x00016108, 0x00018d48, 0x00019d88, 0x0001ba88,
     0x0001eec8, 0x00022088, 0x00022a48, 0x000239c8, 0x00024588, 0x00000000, 0x00000000, 0x00000000,
     0x00a00001, 0x24401648, 0x00000000, 0x80008000, 0x00a00001, 0x24801648, 0x00000000, 0x80008000,
@@ -16816,7 +16815,7 @@ const unsigned int skl_avc_fei_encoder_kernels[AVC_ENC_FEI_SKL_SZ] = {
     0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000,
 };
 
-const unsigned int kbl_avc_encoder_kernels[AVC_ENC_KBL_SZ] = {
+const unsigned int kbl_avc_encoder_kernels[] = {
     0x0000001b, 0x00000088, 0x000013c8, 0x00008f88, 0x00012ec8, 0x00014208, 0x0001bdc8, 0x00025d08,
     0x00027048, 0x0002b288, 0x00030fc8, 0x000323c8, 0x0003b788, 0x000456c8, 0x000466c8, 0x00048388,
     0x0004b848, 0x0004eac8, 0x00050348, 0x0005af48, 0x0005c548, 0x0005cf08, 0x0005d148, 0x0005e1c8,
@@ -29570,7 +29569,7 @@ const unsigned int kbl_avc_encoder_kernels[AVC_ENC_KBL_SZ] = {
 };
 
 /* gen8 */
-const unsigned int bdw_avc_encoder_kernels[AVC_ENC_BDW_SZ] = {
+const unsigned int bdw_avc_encoder_kernels[] = {
     0x00000018, 0x00000088, 0x00001448, 0x00008908, 0x00012208, 0x000135c8, 0x0001aa88, 0x00024388,
     0x00025748, 0x00029808, 0x0002f448, 0x00030988, 0x00039388, 0x00042d08, 0x00043e88, 0x00045e48,
     0x00047ac8, 0x000493c8, 0x0004ad08, 0x000571c8, 0x00058b08, 0x000594c8, 0x00059708, 0x0005a988,
@@ -41514,3 +41513,9 @@ const unsigned int bdw_avc_encoder_kernels[AVC_ENC_BDW_SZ] = {
     0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000,
     0x00000000, 0x00000000, 0x00000000, 0x00000000
 };
+
+const int skl_avc_encoder_kernels_size = sizeof(skl_avc_encoder_kernels_size);
+const int skl_avc_fei_encoder_kernels_size = sizeof(skl_avc_fei_encoder_kernels);
+const int kbl_avc_encoder_kernels_size = sizeof(kbl_avc_encoder_kernels);
+const int bdw_avc_encoder_kernels_size = sizeof(bdw_avc_encoder_kernels);
+

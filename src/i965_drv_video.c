@@ -52,6 +52,8 @@
 
 #include "gen9_vp9_encapi.h"
 
+#include "kernels.h"
+
 #define CONFIG_ID_OFFSET                0x01000000
 #define CONTEXT_ID_OFFSET               0x02000000
 #define SURFACE_ID_OFFSET               0x04000000
@@ -7066,6 +7068,8 @@ i965_Terminate(VADriverContextP ctx)
         ctx->pDriverData = NULL;
     }
 
+    unload_externel_kernels();
+
     return VA_STATUS_SUCCESS;
 }
 
@@ -7075,6 +7079,8 @@ VA_DRIVER_INIT_FUNC(VADriverContextP ctx);
 VAStatus
 VA_DRIVER_INIT_FUNC(VADriverContextP ctx)
 {
+    load_external_kernels();
+
     struct VADriverVTable * const vtable = ctx->vtable;
     struct VADriverVTableVPP * const vtable_vpp = ctx->vtable_vpp;
 

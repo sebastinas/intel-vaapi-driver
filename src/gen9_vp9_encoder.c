@@ -4283,7 +4283,7 @@ gen9_vme_scaling_context_init_vp9(VADriverContextP ctx,
     memset(&scale_kernel, 0, sizeof(scale_kernel));
 
     intel_vp9_get_kernel_header_and_size((void *)media_vp9_kernels,
-                                         sizeof(media_vp9_kernels),
+                                         media_vp9_kernels_size,
                                          INTEL_VP9_ENC_SCALING4X,
                                          0,
                                          &scale_kernel);
@@ -4304,7 +4304,7 @@ gen9_vme_scaling_context_init_vp9(VADriverContextP ctx,
     memset(&scale_kernel, 0, sizeof(scale_kernel));
 
     intel_vp9_get_kernel_header_and_size((void *)media_vp9_kernels,
-                                         sizeof(media_vp9_kernels),
+                                         media_vp9_kernels_size,
                                          INTEL_VP9_ENC_SCALING2X,
                                          0,
                                          &scale_kernel);
@@ -4346,7 +4346,7 @@ gen9_vme_me_context_init_vp9(VADriverContextP ctx,
     memset(&scale_kernel, 0, sizeof(scale_kernel));
 
     intel_vp9_get_kernel_header_and_size((void *)media_vp9_kernels,
-                                         sizeof(media_vp9_kernels),
+                                         media_vp9_kernels_size,
                                          INTEL_VP9_ENC_ME,
                                          0,
                                          &scale_kernel);
@@ -4394,7 +4394,7 @@ gen9_vme_mbenc_context_init_vp9(VADriverContextP ctx,
         memset(&scale_kernel, 0, sizeof(scale_kernel));
 
         intel_vp9_get_kernel_header_and_size((void *)media_vp9_kernels,
-                                             sizeof(media_vp9_kernels),
+                                             media_vp9_kernels_size,
                                              INTEL_VP9_ENC_MBENC,
                                              i,
                                              &scale_kernel);
@@ -4434,7 +4434,7 @@ gen9_vme_brc_context_init_vp9(VADriverContextP ctx,
         memset(&scale_kernel, 0, sizeof(scale_kernel));
 
         intel_vp9_get_kernel_header_and_size((void *)media_vp9_kernels,
-                                             sizeof(media_vp9_kernels),
+                                             media_vp9_kernels_size,
                                              INTEL_VP9_ENC_BRC,
                                              i,
                                              &scale_kernel);
@@ -4473,7 +4473,7 @@ gen9_vme_dys_context_init_vp9(VADriverContextP ctx,
     memset(&scale_kernel, 0, sizeof(scale_kernel));
 
     intel_vp9_get_kernel_header_and_size((void *)media_vp9_kernels,
-                                         sizeof(media_vp9_kernels),
+                                         media_vp9_kernels_size,
                                          INTEL_VP9_ENC_DYS,
                                          0,
                                          &scale_kernel);

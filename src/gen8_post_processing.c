@@ -42,6 +42,7 @@
 #include "i965_yuv_coefs.h"
 #include "intel_media.h"
 
+#include "kernels.h"
 #include "gen75_picture_process.h"
 #include "intel_common_vpp_internal.h"
 
@@ -323,10 +324,6 @@ static struct pp_module pp_modules_gen8[] = {
 #define MAX_SCALING_SURFACES    16
 
 #define DEFAULT_MOCS    0
-
-static const uint32_t pp_yuv420p8_scaling_gen8[][4] = {
-#include "shaders/post_processing/gen8/conv_nv12.g8b"
-};
 
 static void
 gen8_pp_set_surface_tiling(struct gen8_surface_state *ss, unsigned int tiling)
@@ -1675,7 +1672,7 @@ gen8_post_processing_context_init(VADriverContextP ctx,
     gpe_context = &pp_context->scaling_gpe_context;
     memset(&scaling_kernel, 0, sizeof(scaling_kernel));
     scaling_kernel.bin = pp_yuv420p8_scaling_gen8;
-    scaling_kernel.size = sizeof(pp_yuv420p8_scaling_gen8);
+    scaling_kernel.size = pp_yuv420p8_scaling_gen8_size;
     gen8_gpe_load_kernels(ctx, gpe_context, &scaling_kernel, 1);
     gpe_context->idrt.entry_size = ALIGN(sizeof(struct gen8_interface_descriptor_data), 64);
     gpe_context->idrt.max_entries = 1;

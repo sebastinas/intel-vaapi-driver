@@ -9703,18 +9703,18 @@ gen9_avc_vme_context_init(VADriverContextP ctx, struct intel_encoder_context *en
         IS_BXT(i965->intel.device_info)) {
         if (!encoder_context->fei_enabled) {
             generic_ctx->enc_kernel_ptr = (void *)skl_avc_encoder_kernels;
-            generic_ctx->enc_kernel_size = sizeof(skl_avc_encoder_kernels);
+            generic_ctx->enc_kernel_size = skl_avc_encoder_kernels_size;
         } else {
             generic_ctx->enc_kernel_ptr = (void *)skl_avc_fei_encoder_kernels;
-            generic_ctx->enc_kernel_size = sizeof(skl_avc_fei_encoder_kernels);
+            generic_ctx->enc_kernel_size = skl_avc_fei_encoder_kernels_size;
         }
     } else if (IS_GEN8(i965->intel.device_info)) {
         generic_ctx->enc_kernel_ptr = (void *)bdw_avc_encoder_kernels;
-        generic_ctx->enc_kernel_size = sizeof(bdw_avc_encoder_kernels);
+        generic_ctx->enc_kernel_size = bdw_avc_encoder_kernels_size;
     } else if (IS_KBL(i965->intel.device_info) ||
                IS_GLK(i965->intel.device_info)) {
         generic_ctx->enc_kernel_ptr = (void *)kbl_avc_encoder_kernels;
-        generic_ctx->enc_kernel_size = sizeof(kbl_avc_encoder_kernels);
+        generic_ctx->enc_kernel_size = kbl_avc_encoder_kernels_size;
     } else
         goto allocate_structure_failed;
 

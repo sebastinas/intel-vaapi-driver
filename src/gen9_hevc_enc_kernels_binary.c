@@ -17,9 +17,7 @@
  *
  */
 
-#include "gen9_hevc_enc_kernels_binary.h"
-
-const unsigned int gen9_hevc_encoder_kernels[GEN9_HEVC_ENC_KERNEL_SIZE] = {
+const unsigned int gen9_hevc_encoder_kernels[] = {
     0x00000016, 0x00000088, 0x000012c8, 0x00004348, 0x0000b008, 0x00015988, 0x00020cc8, 0x00024c88,
     0x00025e08, 0x00038688, 0x0003a108, 0x0003b148, 0x0003ce48, 0x0003d548, 0x0003f3c8, 0x00040988,
     0x0004bc88, 0x0004e0c8, 0x000541c8, 0x00069948, 0x00069b88, 0x0006d108, 0x0007df48, 0x00000000,
@@ -18682,3 +18680,5 @@ const unsigned int gen9_hevc_encoder_kernels[GEN9_HEVC_ENC_KERNEL_SIZE] = {
     0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000,
     0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000
 };
+
+const int gen9_hevc_encoder_kernels_size = sizeof(gen9_hevc_encoder_kernels);

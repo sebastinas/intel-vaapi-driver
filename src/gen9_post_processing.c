@@ -37,6 +37,7 @@
 #include "i965_render.h"
 #include "intel_media.h"
 
+#include "kernels.h"
 #include "gen8_post_processing.h"
 #include "gen75_picture_process.h"
 #include "intel_gen_vppapi.h"
@@ -110,40 +111,28 @@ static const uint32_t pp_nv12_blending_gen9[][4] = {
 
 #define DEFAULT_MOCS    0x02
 
-static const uint32_t pp_10bit_scaling_gen9[][4] = {
-#include "shaders/post_processing/gen9/conv_p010.g9b"
-};
-
-static const uint32_t pp_yuv420p8_scaling_gen9[][4] = {
-#include "shaders/post_processing/gen9/conv_nv12.g9b"
-};
-
-static const uint32_t pp_10bit_8bit_scaling_gen9[][4] = {
-#include "shaders/post_processing/gen9/conv_10bit_8bit.g9b"
-};
-
 struct i965_kernel pp_common_scaling_gen9[] = {
     {
         "10bit to 10bit",
         0,
-        pp_10bit_scaling_gen9,
-        sizeof(pp_10bit_scaling_gen9),
+        NULL,
+        0,
         NULL,
     },
 
     {
         "8bit to 8bit",
         1,
-        pp_yuv420p8_scaling_gen9,
-        sizeof(pp_yuv420p8_scaling_gen9),
+        NULL,
+        0,
         NULL,
     },
 
     {
         "10bit to 8bit",
         2,
-        pp_10bit_8bit_scaling_gen9,
-        sizeof(pp_10bit_8bit_scaling_gen9),
+        NULL,
+        0,
         NULL,
     },
 };
@@ -534,6 +523,15 @@ gen9_post_processing_context_init(VADriverContextP ctx,
     avs_init_state(&pp_context->pp_avs_context.state, &gen9_avs_config);
 
     pp_context->intel_post_processing = gen9_post_processing;
+
+    /* load kernels */
+    pp_common_scaling_gen9[0].bin  = pp_10bit_scaling_gen9;
+    pp_common_scaling_gen9[0].size = pp_10bit_scaling_gen9_size;
+    pp_common_scaling_gen9[1].bin  = pp_yuv420p8_scaling_gen9;
+    pp_common_scaling_gen9[1].size = pp_yuv420p8_scaling_gen9_size;
+    pp_common_scaling_gen9[2].bin  = pp_10bit_8bit_scaling_gen9;
+    pp_common_scaling_gen9[2].size = pp_10bit_8bit_scaling_gen9_size;
+    // TODO: handle missing kernels
 
     gpe_context = &pp_context->scaling_gpe_context;
     gen8_gpe_load_kernels(ctx, gpe_context, pp_common_scaling_gen9, ARRAY_ELEMS(pp_common_scaling_gen9));

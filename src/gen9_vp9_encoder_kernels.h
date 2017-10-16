@@ -29,7 +29,7 @@
 #ifndef _GEN9_VP9_ENCODER_KERNELS_H
 #define _GEN9_VP9_ENCODER_KERNELS_H
 
-#define AllVP9ENC_SZ 39334
-extern const unsigned int media_vp9_kernels[AllVP9ENC_SZ];
+extern const unsigned int* media_vp9_kernels;
+extern int media_vp9_kernels_size;
 
 #endif

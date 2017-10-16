@@ -29,8 +29,7 @@
 #ifndef GEN9_HEVC_ENCODER_KERNELS_BINARY_H
 #define GEN9_HEVC_ENCODER_KERNELS_BINARY_H
 
-#define GEN9_HEVC_ENC_KERNEL_SIZE 149296
-
-const unsigned int gen9_hevc_encoder_kernels[GEN9_HEVC_ENC_KERNEL_SIZE];
+const unsigned int* gen9_hevc_encoder_kernels;
+int gen9_hevc_encoder_kernels_size;
 
 #endif

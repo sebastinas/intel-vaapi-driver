@@ -7355,7 +7355,7 @@ gen9_hevc_vme_context_init(VADriverContextP ctx,
     struct gen9_hevc_encoder_state *priv_state = NULL;
 
     hevc_enc_kernel_ptr = (void *)gen9_hevc_encoder_kernels;
-    hevc_enc_kernel_size = sizeof(gen9_hevc_encoder_kernels);
+    hevc_enc_kernel_size = gen9_hevc_encoder_kernels_size;
 
     vme_context = calloc(1, sizeof(*vme_context));
     priv_ctx = calloc(1, sizeof(*priv_ctx));

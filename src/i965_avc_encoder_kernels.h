@@ -30,15 +30,14 @@
 #ifndef _I965_AVC_ENCODER_KERNELS_H
 #define _I965_AVC_ENCODER_KERNELS_H
 
-#define AVC_ENC_SKL_SZ 96346
-extern const unsigned int skl_avc_encoder_kernels[AVC_ENC_SKL_SZ];
+const unsigned int* skl_avc_encoder_kernels;
+const unsigned int* skl_avc_fei_encoder_kernels;
+const unsigned int* kbl_avc_encoder_kernels;
+const unsigned int* bdw_avc_encoder_kernels;
 
-#define AVC_ENC_FEI_SKL_SZ 38000
-extern const unsigned int skl_avc_fei_encoder_kernels[AVC_ENC_FEI_SKL_SZ];
+int skl_avc_encoder_kernels_size;
+int skl_avc_fei_encoder_kernels_size;
+int kbl_avc_encoder_kernels_size;
+int bdw_avc_encoder_kernels_size;
 
-#define AVC_ENC_KBL_SZ 101994
-extern const unsigned int kbl_avc_encoder_kernels[AVC_ENC_KBL_SZ];
-
-#define AVC_ENC_BDW_SZ  95532
-extern const unsigned int bdw_avc_encoder_kernels[AVC_ENC_BDW_SZ];
 #endif//_I965_AVC_ENCODER_KERNELS_H

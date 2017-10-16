@@ -33,6 +33,7 @@
 #include "intel_batchbuffer.h"
 #include "intel_driver.h"
 
+#include "kernels.h"
 #include "i965_structs.h"
 #include "i965_defines.h"
 #include "i965_drv_video.h"
@@ -52,70 +53,51 @@
 #define CURBE_URB_ENTRY_LENGTH  4
 
 /* Shaders information for sharpening */
-static const unsigned int gen75_gpe_sharpening_h_blur[][4] = {
-#include "shaders/post_processing/gen75/sharpening_h_blur.g75b"
-};
-static const unsigned int gen75_gpe_sharpening_v_blur[][4] = {
-#include "shaders/post_processing/gen75/sharpening_v_blur.g75b"
-};
-static const unsigned int gen75_gpe_sharpening_unmask[][4] = {
-#include "shaders/post_processing/gen75/sharpening_unmask.g75b"
-};
 static struct i965_kernel gen75_vpp_sharpening_kernels[] = {
     {
         "vpp: sharpening(horizontal blur)",
         VPP_GPE_SHARPENING,
-        gen75_gpe_sharpening_h_blur,
-        sizeof(gen75_gpe_sharpening_h_blur),
+        NULL,
+        0,
         NULL
     },
     {
         "vpp: sharpening(vertical blur)",
         VPP_GPE_SHARPENING,
-        gen75_gpe_sharpening_v_blur,
-        sizeof(gen75_gpe_sharpening_v_blur),
+        NULL,
+        0,
         NULL
     },
     {
         "vpp: sharpening(unmask)",
         VPP_GPE_SHARPENING,
-        gen75_gpe_sharpening_unmask,
-        sizeof(gen75_gpe_sharpening_unmask),
+        NULL,
+        0,
         NULL
     },
 };
 
 /* sharpening kernels for Broadwell */
-static const unsigned int gen8_gpe_sharpening_h_blur[][4] = {
-#include "shaders/post_processing/gen8/sharpening_h_blur.g8b"
-};
-static const unsigned int gen8_gpe_sharpening_v_blur[][4] = {
-#include "shaders/post_processing/gen8/sharpening_v_blur.g8b"
-};
-static const unsigned int gen8_gpe_sharpening_unmask[][4] = {
-#include "shaders/post_processing/gen8/sharpening_unmask.g8b"
-};
-
 static struct i965_kernel gen8_vpp_sharpening_kernels[] = {
     {
         "vpp: sharpening(horizontal blur)",
         VPP_GPE_SHARPENING,
-        gen8_gpe_sharpening_h_blur,
-        sizeof(gen8_gpe_sharpening_h_blur),
+        NULL,
+        0,
         NULL
     },
     {
         "vpp: sharpening(vertical blur)",
         VPP_GPE_SHARPENING,
-        gen8_gpe_sharpening_v_blur,
-        sizeof(gen8_gpe_sharpening_v_blur),
+        NULL,
+        0,
         NULL
     },
     {
         "vpp: sharpening(unmask)",
         VPP_GPE_SHARPENING,
-        gen8_gpe_sharpening_unmask,
-        sizeof(gen8_gpe_sharpening_unmask),
+        NULL,
+        0,
         NULL
     },
 };
@@ -624,9 +606,10 @@ vpp_gpe_process_sharpening(VADriverContextP ctx,
     if (vpp_gpe_ctx->is_first_frame) {
         vpp_gpe_ctx->sub_shader_sum = 3;
         struct i965_kernel * vpp_kernels;
-        if (IS_HASWELL(i965->intel.device_info))
+        // TODO: error out if no shaders available?
+        if (IS_HASWELL(i965->intel.device_info)) {
             vpp_kernels = gen75_vpp_sharpening_kernels;
-        else if (IS_GEN8(i965->intel.device_info) ||
+        } else if (IS_GEN8(i965->intel.device_info) ||
                  IS_GEN9(i965->intel.device_info)) // TODO: build the sharpening kernel for GEN9
             vpp_kernels = gen8_vpp_sharpening_kernels;
         else
@@ -868,6 +851,14 @@ vpp_gpe_context_init(VADriverContextP ctx)
     gpe_ctx->vfe_state.curbe_allocation_size = CURBE_ALLOCATION_SIZE - 1;
 
     if (IS_HASWELL(i965->intel.device_info)) {
+        /* load kernels */
+        gen75_vpp_sharpening_kernels[0].bin  = gen75_gpe_sharpening_h_blur;
+        gen75_vpp_sharpening_kernels[0].size = gen75_gpe_sharpening_h_blur_size;
+        gen75_vpp_sharpening_kernels[1].bin  = gen75_gpe_sharpening_v_blur;
+        gen75_vpp_sharpening_kernels[1].size = gen75_gpe_sharpening_v_blur_size;
+        gen75_vpp_sharpening_kernels[2].bin  = gen75_gpe_sharpening_unmask;
+        gen75_vpp_sharpening_kernels[2].size = gen75_gpe_sharpening_unmask_size;
+
         vpp_gpe_ctx->gpe_context_init     = i965_gpe_context_init;
         vpp_gpe_ctx->gpe_context_destroy  = i965_gpe_context_destroy;
         vpp_gpe_ctx->gpe_load_kernels     = i965_gpe_load_kernels;
@@ -880,6 +871,14 @@ vpp_gpe_context_init(VADriverContextP ctx)
 
     } else if (IS_GEN8(i965->intel.device_info) ||
                IS_GEN9(i965->intel.device_info)) {
+        /* load kernels */
+        gen8_vpp_sharpening_kernels[0].bin  = gen8_gpe_sharpening_h_blur;
+        gen8_vpp_sharpening_kernels[0].size = gen8_gpe_sharpening_h_blur_size;
+        gen8_vpp_sharpening_kernels[1].bin  = gen8_gpe_sharpening_v_blur;
+        gen8_vpp_sharpening_kernels[1].size = gen8_gpe_sharpening_v_blur_size;
+        gen8_vpp_sharpening_kernels[2].bin  = gen8_gpe_sharpening_unmask;
+        gen8_vpp_sharpening_kernels[2].size = gen8_gpe_sharpening_unmask_size;
+
         vpp_gpe_ctx->gpe_context_init     = gen8_gpe_context_init;
         vpp_gpe_ctx->gpe_context_destroy  = gen8_gpe_context_destroy;
         vpp_gpe_ctx->gpe_load_kernels     = gen8_gpe_load_kernels;

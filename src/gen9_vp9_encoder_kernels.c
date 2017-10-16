@@ -14,10 +14,9 @@
  *  See the License for the specific language governing permissions and
  *  limitations under the License.
  */
-#include "gen9_vp9_encoder_kernels.h"
 
 
-const unsigned int media_vp9_kernels[AllVP9ENC_SZ] = {
+const unsigned int media_vp9_kernels[] = {
     0x0000000b, 0x00000048, 0x00001c48, 0x00002b08, 0x00009c88, 0x0000b5c8, 0x00011c88, 0x00017d08,
     0x000183c8, 0x00018ac8, 0x0001a748, 0x0001bac8, 0x00000000, 0x00000000, 0x00000000, 0x00000000,
     0x00000005, 0x2f82124c, 0x16000004, 0x07ff07ff, 0x00000005, 0x2f80124c, 0x16000006, 0x07ff07ff,
@@ -4936,3 +4935,5 @@ const unsigned int media_vp9_kernels[AllVP9ENC_SZ] = {
     0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000,
     0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000
 };
+
+const int media_vp9_kernels_size = sizeof(media_vp9_kernels);
