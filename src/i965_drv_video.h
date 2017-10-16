@@ -125,7 +125,8 @@
                                  (ctx)->intel.has_bsd)
 
 #define HAS_VP8_ENCODING(ctx)   ((ctx)->codec_info->has_vp8_encoding && \
-                                 (ctx)->intel.has_bsd)
+                                 (ctx)->intel.has_bsd && \
+                                 has_external_kernels())
 
 #define HAS_H264_MVC_DECODING(ctx) \
     (HAS_H264_DECODING(ctx) && (ctx)->codec_info->h264_mvc_dec_profiles)
@@ -144,7 +145,8 @@
                                          (ctx)->intel.has_bsd)
 
 #define HAS_VP9_DECODING(ctx)          ((ctx)->codec_info->has_vp9_decoding && \
-                                         (ctx)->intel.has_bsd)
+                                         (ctx)->intel.has_bsd && \
+                                         has_external_kernels())
 
 #define HAS_VP9_DECODING_PROFILE(ctx, profile)                     \
     (HAS_VP9_DECODING(ctx) &&                                      \
@@ -159,7 +161,8 @@
                                          (ctx)->intel.has_bsd)
 
 #define HAS_VP9_ENCODING(ctx)          ((ctx)->codec_info->has_vp9_encoding && \
-                                         (ctx)->intel.has_bsd)
+                                         (ctx)->intel.has_bsd && \
+                                         has_external_kernels())
 
 #define HAS_VP9_ENCODING_PROFILE(ctx, profile)                     \
     (HAS_VP9_ENCODING(ctx) &&                                      \
