@@ -66,18 +66,12 @@ i965_drv_video_la_LIBADD	= libi965_drv_video.la $(driver_libs)
 i965_drv_video_la_SOURCES	=
 
 # shaders module
+if HAVE_SPLIT_KERNELS
 i965_drv_video_shaders_la_LTLIBRARIES	= i965_drv_video_shaders.la
 i965_drv_video_shaders_ladir		= $(LIBVA_DRIVERS_PATH)
 i965_drv_video_shaders_la_LDFLAGS	= -module $(driver_ldflags)
-i965_drv_video_shaders_la_SOURCES	= \
-	gen75_vpp_gpe_kernels.c \
-	gen8_encoder_vp8_kernels.c \
-	gen8_post_processing_kernels.c \
-	gen9_hevc_enc_kernels_binary.c \
-	gen9_post_processing_kernels.c \
-	gen9_vp9_encoder_kernels.c \
-	i965_avc_encoder_kernels.c \
-	$(NULL)
+i965_drv_video_shaders_la_SOURCES	= $(kernel_source_c)
+endif
 
 noinst_HEADERS			= $(source_h)
 

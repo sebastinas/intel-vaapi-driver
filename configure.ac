@@ -72,6 +72,12 @@ AC_ARG_ENABLE([tests],
                     [build tests @<:@default=no@:>@])],
     [], [enable_tests="no"])
 
+AC_ARG_ENABLE(split-kernels,
+    [AC_HELP_STRING([--enable-split-kernels],
+                    [split kernels without source @<:@default=yes@:>@])],
+    [], [enable_split_kernels="yes"])
+
+
 AC_DISABLE_STATIC
 AC_PROG_LIBTOOL
 AC_PROG_CC
@@ -128,6 +134,11 @@ if test "$enable_hybrid_codec" = "yes"; then
 fi
 
 AM_CONDITIONAL(ENABLE_TESTS, test "$enable_tests" = "yes")
+
+if test "$enable_split_kernels" = "yes"; then
+    AC_DEFINE([HAVE_SPLIT_KERNELS], [1], [DEfined to 1 if split kernels are enabled])
+fi
+AM_CONDITIONAL(HAVE_SPLIT_KERNELS, test "$enable_split_kernels" = "yes")
 
 VA_VERSION=`$PKG_CONFIG --modversion libva`
 VA_MAJOR_VERSION=`echo "$VA_VERSION" | cut -d'.' -f1`

@@ -131,3 +131,13 @@ source_h = \
 	gen9_hevc_enc_utils.h \
 	gen9_hevc_encoder.h \
 	$(NULL)
+
+kernel_source_c = \
+	gen75_vpp_gpe_kernels.c \
+	gen8_encoder_vp8_kernels.c \
+	gen8_post_processing_kernels.c \
+	gen9_hevc_enc_kernels_binary.c \
+	gen9_post_processing_kernels.c \
+	gen9_vp9_encoder_kernels.c \
+	i965_avc_encoder_kernels.c \
+	$(NULL)
