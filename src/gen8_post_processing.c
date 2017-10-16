@@ -1669,42 +1669,44 @@ gen8_post_processing_context_init(VADriverContextP ctx,
      * I420 ->I420
      * I420 ->NV12
      */
-    gpe_context = &pp_context->scaling_gpe_context;
-    memset(&scaling_kernel, 0, sizeof(scaling_kernel));
-    scaling_kernel.bin = pp_yuv420p8_scaling_gen8;
-    scaling_kernel.size = pp_yuv420p8_scaling_gen8_size;
-    gen8_gpe_load_kernels(ctx, gpe_context, &scaling_kernel, 1);
-    gpe_context->idrt.entry_size = ALIGN(sizeof(struct gen8_interface_descriptor_data), 64);
-    gpe_context->idrt.max_entries = 1;
-    gpe_context->sampler.entry_size = ALIGN(sizeof(struct gen8_sampler_state), 64);
-    gpe_context->sampler.max_entries = 1;
-    gpe_context->curbe.length = ALIGN(sizeof(struct scaling_input_parameter), 32);
+    if (has_external_kernels()) {
+      gpe_context = &pp_context->scaling_gpe_context;
+      memset(&scaling_kernel, 0, sizeof(scaling_kernel));
+      scaling_kernel.bin = pp_yuv420p8_scaling_gen8;
+      scaling_kernel.size = pp_yuv420p8_scaling_gen8_size;
+      gen8_gpe_load_kernels(ctx, gpe_context, &scaling_kernel, 1);
+      gpe_context->idrt.entry_size = ALIGN(sizeof(struct gen8_interface_descriptor_data), 64);
+      gpe_context->idrt.max_entries = 1;
+      gpe_context->sampler.entry_size = ALIGN(sizeof(struct gen8_sampler_state), 64);
+      gpe_context->sampler.max_entries = 1;
+      gpe_context->curbe.length = ALIGN(sizeof(struct scaling_input_parameter), 32);
 
-    gpe_context->surface_state_binding_table.max_entries = MAX_SCALING_SURFACES;
-    gpe_context->surface_state_binding_table.binding_table_offset = 0;
-    gpe_context->surface_state_binding_table.surface_state_offset = ALIGN(MAX_SCALING_SURFACES * 4, 64);
-    gpe_context->surface_state_binding_table.length = ALIGN(MAX_SCALING_SURFACES * 4, 64) + ALIGN(MAX_SCALING_SURFACES * SURFACE_STATE_PADDED_SIZE_GEN8, 64);
+      gpe_context->surface_state_binding_table.max_entries = MAX_SCALING_SURFACES;
+      gpe_context->surface_state_binding_table.binding_table_offset = 0;
+      gpe_context->surface_state_binding_table.surface_state_offset = ALIGN(MAX_SCALING_SURFACES * 4, 64);
+      gpe_context->surface_state_binding_table.length = ALIGN(MAX_SCALING_SURFACES * 4, 64) + ALIGN(MAX_SCALING_SURFACES * SURFACE_STATE_PADDED_SIZE_GEN8, 64);
 
-    if (i965->intel.eu_total > 0) {
-        gpe_context->vfe_state.max_num_threads = i965->intel.eu_total * 6;
-    } else {
-        if (i965->intel.has_bsd2)
-            gpe_context->vfe_state.max_num_threads = 300;
-        else
-            gpe_context->vfe_state.max_num_threads = 60;
+      if (i965->intel.eu_total > 0) {
+          gpe_context->vfe_state.max_num_threads = i965->intel.eu_total * 6;
+      } else {
+          if (i965->intel.has_bsd2)
+              gpe_context->vfe_state.max_num_threads = 300;
+          else
+              gpe_context->vfe_state.max_num_threads = 60;
+      }
+
+      gpe_context->vfe_state.curbe_allocation_size = 37;
+      gpe_context->vfe_state.urb_entry_size = 16;
+      if (i965->intel.has_bsd2)
+          gpe_context->vfe_state.num_urb_entries = 127;
+      else
+          gpe_context->vfe_state.num_urb_entries = 64;
+
+      gpe_context->vfe_state.gpgpu_mode = 0;
+
+      gen8_gpe_context_init(ctx, gpe_context);
+      pp_context->scaling_gpe_context_initialized |= VPPGPE_8BIT_8BIT;
     }
-
-    gpe_context->vfe_state.curbe_allocation_size = 37;
-    gpe_context->vfe_state.urb_entry_size = 16;
-    if (i965->intel.has_bsd2)
-        gpe_context->vfe_state.num_urb_entries = 127;
-    else
-        gpe_context->vfe_state.num_urb_entries = 64;
-
-    gpe_context->vfe_state.gpgpu_mode = 0;
-
-    gen8_gpe_context_init(ctx, gpe_context);
-    pp_context->scaling_gpe_context_initialized |= VPPGPE_8BIT_8BIT;
 
     return;
 }
