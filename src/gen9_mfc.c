@@ -53,7 +53,11 @@ Bool gen9_mfc_context_init(VADriverContextP ctx, struct intel_encoder_context *e
 
     switch (encoder_context->codec) {
     case CODEC_VP8:
+#if 0
         return i965_encoder_vp8_pak_context_init(ctx, encoder_context);
+#else
+        return False;
+#endif
 
     case CODEC_MPEG2:
     case CODEC_JPEG:
@@ -61,23 +65,29 @@ Bool gen9_mfc_context_init(VADriverContextP ctx, struct intel_encoder_context *e
 
     case CODEC_H264:
     case CODEC_H264_MVC:
+#if 0
         if (encoder_context->low_power_mode)
             return gen9_vdenc_context_init(ctx, encoder_context);
         else
             return gen9_avc_pak_context_init(ctx, encoder_context);
-
+#endif
     case CODEC_HEVC:
+#if 0
         if (IS_GEN10(i965->intel.device_info))
             return gen10_hevc_pak_context_init(ctx, encoder_context);
         else
             return gen9_hevc_pak_context_init(ctx, encoder_context);
-
+#endif
     case CODEC_VP9:
+#if 0
         if (encoder_context->low_power_mode) {
             assert(IS_GEN10(i965->intel.device_info));
             return gen10_vdenc_vp9_context_init(ctx, encoder_context);
         } else
             return gen9_vp9_pak_context_init(ctx, encoder_context);
+#else
+            return False;
+#endif
     }
 
     /* Other profile/entrypoint pairs never get here, see gen9_enc_hw_context_init() */

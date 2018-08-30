@@ -1992,17 +1992,34 @@ Bool gen9_vme_context_init(VADriverContextP ctx, struct intel_encoder_context *e
     }
 
     if (encoder_context->codec == CODEC_VP9) {
+#if 0
         return gen9_vp9_vme_context_init(ctx, encoder_context);
+#else
+        return False;
+#endif
     } else if (encoder_context->codec == CODEC_VP8) {
+#if 0
         return i965_encoder_vp8_vme_context_init(ctx, encoder_context);
+#else
+        return False;
+#endif
     } else if (encoder_context->codec == CODEC_H264 ||
                encoder_context->codec == CODEC_H264_MVC) {
+#if 0
         return gen9_avc_vme_context_init(ctx, encoder_context);
+#else
+        return False;
+#endif
     } else if (encoder_context->codec == CODEC_HEVC) {
+#if 0
         if (IS_GEN10(i965->intel.device_info))
+            // requires gen10_media_hevc_kenerls
             return gen10_hevc_vme_context_init(ctx, encoder_context);
         else
             return gen9_hevc_vme_context_init(ctx, encoder_context);
+#else
+            return False;
+#endif
     }
 
     vme_context = calloc(1, sizeof(struct gen6_vme_context));

@@ -4711,10 +4711,18 @@ Bool gen8_mfc_context_init(VADriverContextP ctx, struct intel_encoder_context *e
     struct gen6_mfc_context *mfc_context;
 
     if (IS_CHERRYVIEW(i965->intel.device_info) && encoder_context->codec == CODEC_VP8)
+#if 0
         return i965_encoder_vp8_pak_context_init(ctx, encoder_context);
+#else
+        return False;
+#endif
     if (IS_GEN8(i965->intel.device_info) && (encoder_context->codec == CODEC_H264 ||
                                              encoder_context->codec == CODEC_H264_MVC)) {
+#if 0
         return gen9_avc_pak_context_init(ctx, encoder_context);
+#else
+        return False;
+#endif
     }
     mfc_context = calloc(1, sizeof(struct gen6_mfc_context));
     assert(mfc_context);
