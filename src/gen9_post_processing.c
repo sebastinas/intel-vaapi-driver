@@ -108,6 +108,7 @@ static const uint32_t pp_nv12_load_save_rgbx_gen9[][4] = {
 
 #define DEFAULT_MOCS    0x02
 
+#if 0
 static const uint32_t pp_10bit_scaling_gen9[][4] = {
 #include "shaders/post_processing/gen9/conv_p010.g9b"
 };
@@ -123,6 +124,7 @@ static const uint32_t pp_10bit_8bit_scaling_gen9[][4] = {
 static const uint32_t pp_8bit_420_rgb32_scaling_gen9[][4] = {
 #include "shaders/post_processing/gen9/conv_8bit_420_rgb32.g9b"
 };
+#endif
 
 static const uint32_t pp_clear_yuy2_gen9[][4] = {
 #include "shaders/post_processing/gen9/clear_yuy2.g9b"
@@ -148,6 +150,7 @@ static const uint32_t pp_clear_bgrx_gen9[][4] = {
 #include "shaders/post_processing/gen9/clear_bgrx.g9b"
 };
 
+#if 0
 struct i965_kernel pp_common_scaling_gen9[] = {
     {
         "10bit to 10bit",
@@ -181,6 +184,7 @@ struct i965_kernel pp_common_scaling_gen9[] = {
         NULL,
     },
 };
+#endif
 
 struct i965_kernel pp_clear_gen9[] = {
     {
@@ -619,6 +623,7 @@ gen9_post_processing_context_init(VADriverContextP ctx,
 
     pp_context->intel_post_processing = gen9_post_processing;
 
+#if 0
     gpe_context = &pp_context->scaling_gpe_context;
     gen8_gpe_load_kernels(ctx, gpe_context, pp_common_scaling_gen9, ARRAY_ELEMS(pp_common_scaling_gen9));
     gpe_context->idrt.entry_size = ALIGN(sizeof(struct gen8_interface_descriptor_data), 64);
@@ -648,6 +653,7 @@ gen9_post_processing_context_init(VADriverContextP ctx,
 
     gen8_gpe_context_init(ctx, gpe_context);
     pp_context->scaling_gpe_context_initialized |= (VPPGPE_8BIT_8BIT | VPPGPE_10BIT_10BIT | VPPGPE_10BIT_8BIT | VPPGPE_8BIT_420_RGB32);
+#endif
 
     gpe_context = &pp_context->clear_gpe_context;
     gen8_gpe_load_kernels(ctx, gpe_context, pp_clear_gen9, ARRAY_ELEMS(pp_clear_gen9));

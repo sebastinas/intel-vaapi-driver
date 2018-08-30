@@ -51,6 +51,7 @@
 #define CURBE_TOTAL_DATA_LENGTH (4 * 32)
 #define CURBE_URB_ENTRY_LENGTH  4
 
+#if 0
 /* Shaders information for sharpening */
 static const unsigned int gen75_gpe_sharpening_h_blur[][4] = {
 #include "shaders/post_processing/gen75/sharpening_h_blur.g75b"
@@ -119,6 +120,7 @@ static struct i965_kernel gen8_vpp_sharpening_kernels[] = {
         NULL
     },
 };
+#endif
 
 static VAStatus
 gen75_gpe_process_surfaces_setup(VADriverContextP ctx,
@@ -625,6 +627,7 @@ vpp_gpe_process_sharpening(VADriverContextP ctx,
     if (vpp_gpe_ctx->is_first_frame) {
         vpp_gpe_ctx->sub_shader_sum = 3;
         struct i965_kernel * vpp_kernels;
+#if 0
         if (IS_HASWELL(i965->intel.device_info))
             vpp_kernels = gen75_vpp_sharpening_kernels;
         else if (IS_GEN8(i965->intel.device_info) ||
@@ -632,6 +635,7 @@ vpp_gpe_process_sharpening(VADriverContextP ctx,
                  IS_GEN10(i965->intel.device_info))
             vpp_kernels = gen8_vpp_sharpening_kernels;
         else
+#endif
             return VA_STATUS_ERROR_UNIMPLEMENTED;
 
         vpp_gpe_ctx->gpe_load_kernels(ctx,

@@ -223,11 +223,10 @@ static struct hw_codec_info hsw_hw_codec_info = {
 
     .h264_brc_mode = VA_RC_CQP | VA_RC_CBR | VA_RC_VBR,
 
-    .num_filters = 5,
+    .num_filters = 4,
     .filters = {
         { VAProcFilterNoiseReduction, I965_RING_VEBOX },
         { VAProcFilterDeinterlacing, I965_RING_VEBOX },
-        { VAProcFilterSharpening, I965_RING_NULL },
         { VAProcFilterColorBalance, I965_RING_VEBOX},
         { VAProcFilterSkinToneEnhancement, I965_RING_VEBOX},
     },
@@ -259,7 +258,6 @@ static struct hw_codec_info bdw_hw_codec_info = {
     .has_h264_encoding = 1,
     .has_vc1_decoding = 1,
     .has_jpeg_decoding = 1,
-    .has_vpp = 1,
     .has_accelerated_getimage = 1,
     .has_accelerated_putimage = 1,
     .has_tiled_surface = 1,
@@ -270,11 +268,10 @@ static struct hw_codec_info bdw_hw_codec_info = {
 
     .h264_brc_mode = VA_RC_CQP | VA_RC_CBR | VA_RC_VBR,
 
-    .num_filters = 5,
+    .num_filters = 4,
     .filters = {
         { VAProcFilterNoiseReduction, I965_RING_VEBOX },
         { VAProcFilterDeinterlacing, I965_RING_VEBOX },
-        { VAProcFilterSharpening, I965_RING_NULL }, /* need to rebuild the shader for BDW */
         { VAProcFilterColorBalance, I965_RING_VEBOX},
         { VAProcFilterSkinToneEnhancement, I965_RING_VEBOX},
     },
@@ -306,7 +303,6 @@ static struct hw_codec_info chv_hw_codec_info = {
     .has_vc1_decoding = 1,
     .has_jpeg_decoding = 1,
     .has_jpeg_encoding = 1,
-    .has_vpp = 1,
     .has_accelerated_getimage = 1,
     .has_accelerated_putimage = 1,
     .has_tiled_surface = 1,
@@ -319,11 +315,10 @@ static struct hw_codec_info chv_hw_codec_info = {
 
     .h264_brc_mode = VA_RC_CQP | VA_RC_CBR | VA_RC_VBR,
 
-    .num_filters = 5,
+    .num_filters = 4,
     .filters = {
         { VAProcFilterNoiseReduction, I965_RING_VEBOX },
         { VAProcFilterDeinterlacing, I965_RING_VEBOX },
-        { VAProcFilterSharpening, I965_RING_NULL }, /* need to rebuild the shader for BDW */
         { VAProcFilterColorBalance, I965_RING_VEBOX},
         { VAProcFilterSkinToneEnhancement, I965_RING_VEBOX},
     },
@@ -361,7 +356,6 @@ static struct hw_codec_info skl_hw_codec_info = {
     .has_vc1_decoding = 1,
     .has_jpeg_decoding = 1,
     .has_jpeg_encoding = 1,
-    .has_vpp = 1,
     .has_accelerated_getimage = 1,
     .has_accelerated_putimage = 1,
     .has_tiled_surface = 1,
@@ -379,11 +373,10 @@ static struct hw_codec_info skl_hw_codec_info = {
     .lp_h264_brc_mode = VA_RC_CQP,
     .h264_brc_mode = VA_RC_CQP | VA_RC_CBR | VA_RC_VBR | VA_RC_MB,
 
-    .num_filters = 5,
+    .num_filters = 4,
     .filters = {
         { VAProcFilterNoiseReduction, I965_RING_VEBOX },
         { VAProcFilterDeinterlacing, I965_RING_VEBOX },
-        { VAProcFilterSharpening, I965_RING_NULL }, /* need to rebuild the shader for BDW */
         { VAProcFilterColorBalance, I965_RING_VEBOX},
         { VAProcFilterSkinToneEnhancement, I965_RING_VEBOX},
     },
@@ -432,7 +425,6 @@ static struct hw_codec_info bxt_hw_codec_info = {
     .has_hevc_encoding = 1,
     .has_hevc10_decoding = 1,
     .has_vp9_decoding = 1,
-    .has_vpp_p010 = 1,
     .has_lp_h264_encoding = 1,
 
     .lp_h264_brc_mode = VA_RC_CQP,
@@ -442,7 +434,6 @@ static struct hw_codec_info bxt_hw_codec_info = {
     .filters = {
         { VAProcFilterNoiseReduction, I965_RING_VEBOX },
         { VAProcFilterDeinterlacing, I965_RING_VEBOX },
-        { VAProcFilterSharpening, I965_RING_NULL },
         { VAProcFilterColorBalance, I965_RING_VEBOX},
         { VAProcFilterSkinToneEnhancement, I965_RING_VEBOX},
     },
@@ -495,7 +486,6 @@ static struct hw_codec_info kbl_hw_codec_info = {
     .has_hevc10_encoding = 1,
     .has_hevc10_decoding = 1,
     .has_vp9_decoding = 1,
-    .has_vpp_p010 = 1,
     .has_vp9_encoding = 1,
     .has_lp_h264_encoding = 1,
 
@@ -562,7 +552,6 @@ static struct hw_codec_info glk_hw_codec_info = {
     .has_hevc10_decoding = 1,
     .has_hevc10_encoding = 1,
     .has_vp9_decoding = 1,
-    .has_vpp_p010 = 1,
     .has_vp9_encoding = 1,
     .has_lp_h264_encoding = 1,
 
@@ -628,7 +617,6 @@ static struct hw_codec_info cfl_hw_codec_info = {
     .has_hevc10_encoding = 1,
     .has_hevc10_decoding = 1,
     .has_vp9_decoding = 1,
-    .has_vpp_p010 = 1,
     .has_vp9_encoding = 1,
     .has_lp_h264_encoding = 1,
 
@@ -637,11 +625,10 @@ static struct hw_codec_info cfl_hw_codec_info = {
 
     .vp9_brc_mode = VA_RC_CQP | VA_RC_CBR | VA_RC_VBR,
 
-    .num_filters = 5,
+    .num_filters = 4,
     .filters = {
         { VAProcFilterNoiseReduction, I965_RING_VEBOX },
         { VAProcFilterDeinterlacing, I965_RING_VEBOX },
-        { VAProcFilterSharpening, I965_RING_NULL },
         { VAProcFilterColorBalance, I965_RING_VEBOX},
         { VAProcFilterSkinToneEnhancement, I965_RING_VEBOX},
     },
@@ -692,7 +679,6 @@ static struct hw_codec_info cnl_hw_codec_info = {
     .has_hevc10_decoding = 1,
     .has_hevc10_encoding = 1,
     .has_vp9_decoding = 1,
-    .has_vpp_p010 = 1,
     .has_vp9_encoding = 1,
     .has_lp_h264_encoding = 1,
     .has_lp_vp9_encoding = 1,
@@ -702,11 +688,10 @@ static struct hw_codec_info cnl_hw_codec_info = {
 
     .vp9_brc_mode = VA_RC_CQP | VA_RC_CBR | VA_RC_VBR,
 
-    .num_filters = 5,
+    .num_filters = 4,
     .filters = {
         { VAProcFilterNoiseReduction, I965_RING_VEBOX },
         { VAProcFilterDeinterlacing, I965_RING_VEBOX },
-        { VAProcFilterSharpening, I965_RING_NULL },
         { VAProcFilterColorBalance, I965_RING_VEBOX},
         { VAProcFilterSkinToneEnhancement, I965_RING_VEBOX},
     },

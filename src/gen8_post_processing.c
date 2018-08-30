@@ -324,6 +324,7 @@ static struct pp_module pp_modules_gen8[] = {
 
 #define DEFAULT_MOCS    0
 
+#if 0
 static const uint32_t pp_yuv420p8_scaling_gen8[][4] = {
 #include "shaders/post_processing/gen8/conv_nv12.g8b"
 };
@@ -349,6 +350,7 @@ struct i965_kernel pp_common_scaling_gen8[] = {
         NULL,
     },
 };
+#endif
 
 static const uint32_t pp_clear_yuy2_gen8[][4] = {
 #include "shaders/post_processing/gen8/clear_yuy2.g8b"
@@ -1763,6 +1765,7 @@ gen8_post_processing_context_init(VADriverContextP ctx,
     gen8_post_processing_context_common_init(ctx, data, pp_modules_gen8, ARRAY_ELEMS(pp_modules_gen8), batch);
     avs_init_state(&pp_context->pp_avs_context.state, &gen8_avs_config);
 
+#if 0
     /* initialize the YUV420 8-Bit scaling context. The below is supported.
      * NV12 ->NV12
      * NV12 ->I420
@@ -1802,6 +1805,7 @@ gen8_post_processing_context_init(VADriverContextP ctx,
 
     gen8_gpe_context_init(ctx, gpe_context);
     pp_context->scaling_gpe_context_initialized |= (VPPGPE_8BIT_8BIT | VPPGPE_8BIT_420_RGB32);
+#endif
 
     gpe_context = &pp_context->clear_gpe_context;
     gen8_gpe_load_kernels(ctx, gpe_context, pp_clear_gen8, ARRAY_ELEMS(pp_clear_gen8));
